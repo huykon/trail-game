@@ -1,38 +1,68 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.text-center {
+    text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.scene-area {
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.scroll-section {
+    display: block;
+    overflow-x: scroll;
+    scrollbar-width: none;
 }
 
-.App-link {
-  color: #61dafb;
+.scroll-section::-webkit-scrollbar {
+    display: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.scroll-section img {
+    height: 100vh;
+    display: block;
+}
+
+.container-image {
+    display: inline-block;
+    position: relative;
+}
+
+.scene-area button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.container-image button {
+    background: #fff;
+    border: 0;
+    border-radius: 5px;
+    padding: 4px 11px;
+}
+
+
+button.nav-control {
+    background: #333;
+    color: #fff;
+    border: 0;
+    border-radius: 5px;
+    padding: 7px 10px;
+}
+
+button.nav-control.nav-left {
+    left: 10px;
+    transform: translateY(-50%) rotate(-90deg);
+}
+
+button.nav-control.nav-right {
+    left: unset;
+    right: 10px;
+    transform: translateY(-50%) rotate(90deg);
 }
