@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { render, screen } from "@testing-library/react";
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
 
-const scenes = [
+const scenesData = [
     {
         id: 0,
         background_url: "mountain0.jpg",
@@ -18,9 +18,79 @@ const scenes = [
     },
 ];
 
-test("renders learn react link", () => {
+const initialStates = {
+    imageLoaded: false,
+    scenes: scenesData[0],
+};
+
+test("renders app", () => {
+    const { queryByTestId } = render(<App />);
+
+    expect(queryByTestId("app")).toBeTruthy();
+});
+
+test("renders empty", () => {
+    const { queryByTestId } = render(<App />);
+
+    if (!initialStates.scenes) {
+        expect(queryByTestId("render-empty")).toBeTruthy();
+    }
+});
+
+test("renders scene area", () => {
+    const { queryByTestId } = render(<App />);
+
+    if (initialStates.scenes) {
+        expect(queryByTestId("scene-area")).toBeInTheDocument();
+    }
+});
+
+test("renders image scene", () => {
+    const { queryByTestId } = render(<App />);
+
+    if (initialStates.scenes.background_url) {
+        expect(queryByTestId("scroll-section")).toBeTruthy();
+    }
+});
+
+test("renders buttons change scene", () => {
+    const { queryByTestId } = render(<App />);
+
+    if (
+        initialStates.scenes.background_url &&
+        initialStates.imageLoaded &&
+        initialStates.scenes.hitzones
+    ) {
+        expect(queryByTestId("btn-change-scene")).toBeTruthy();
+    }
+});
+
+test("calls onClick change scene when clicked", () => {
+    const handleClick = jest.fn();
     render(<App />);
-    /* const linkElement = screen.getByText(/Current scene can not loaded/i);
-    expect(linkElement).toBeInTheDocument(); */
-    // expect
+    if (
+        initialStates.scenes.background_url &&
+        initialStates.imageLoaded &&
+        initialStates.scenes.hitzones
+    ) {
+        fireEvent.click(screen.getByText(/↑/i));
+        expect(handleClick).toHaveBeenCalledTimes(1);
+    }
+});
+
+test("renders nav scroll", () => {
+    const { queryByTestId } = render(<App />);
+
+    if (initialStates.imageLoaded) {
+        expect(queryByTestId("nav-scroll")).toBeTruthy();
+    }
+});
+
+test("calls onClick scroll image view when clicked", () => {
+    const handleClick = jest.fn();
+    render(<App />);
+    if (initialStates.imageLoaded) {
+        fireEvent.click(screen.getByText(/∆/i));
+        expect(handleClick).toHaveBeenCalledTimes(1);
+    }
 });

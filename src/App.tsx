@@ -32,11 +32,15 @@ function App() {
     };
 
     return (
-        <div className="App">
+        <div className="App" data-testid="app">
             {currentScene ? (
-                <div className="scene-area">
+                <div className="scene-area" data-testid="scene-area">
                     {currentScene.background_url ? (
-                        <div className="scroll-section" id="scroll-section">
+                        <div
+                            className="scroll-section"
+                            id="scroll-section"
+                            data-testid="scroll-section"
+                        >
                             <div className="container-image">
                                 <img
                                     src={
@@ -62,6 +66,7 @@ function App() {
                                                           hitZone.goto
                                                       )
                                                   }
+                                                  data-testid="btn-change-scene"
                                               >
                                                   ↑
                                               </button>
@@ -74,7 +79,7 @@ function App() {
                         ""
                     )}
                     {imageLoaded && (
-                        <React.Fragment>
+                        <React.Fragment data-testid="nav-scroll">
                             <button
                                 className="nav-control nav-left"
                                 onClick={() => onScrollImage("left")}
@@ -91,7 +96,9 @@ function App() {
                     )}
                 </div>
             ) : (
-                <div className="text-center">Current scene can not loaded</div>
+                <div className="text-center" data-testid="render-empty">
+                    Current scene can not loaded
+                </div>
             )}
         </div>
     );
