@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./App.css";
 import ScenesData from "./assets/scenes.json";
+import "./App.css";
 
 function App() {
     const scenesArray = (ScenesData && ScenesData.scenes) || [];
@@ -28,6 +28,37 @@ function App() {
             } else {
                 scrollSection.scrollLeft -= 100;
             }
+        }
+    };
+
+    const renderJs = () => {
+        const slider = document.querySelector(".scroll-section") as HTMLElement;
+        let isDown = false;
+        let startX = 0;
+        let scrollLeft = 0;
+        if (slider) {
+            slider.addEventListener("mousedown", (event) => {
+                const e = event as MouseEvent;
+                isDown = true;
+                slider.classList.add("active");
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+            slider.addEventListener("mouseleave", () => {
+                isDown = false;
+                slider.classList.remove("active");
+            });
+            slider.addEventListener("mouseup", () => {
+                isDown = false;
+                slider.classList.remove("active");
+            });
+            slider.addEventListener("mousemove", (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = x - startX;
+                slider.scrollLeft = scrollLeft - walk;
+            });
         }
     };
 
@@ -79,7 +110,7 @@ function App() {
                         ""
                     )}
                     {imageLoaded && (
-                        <React.Fragment data-testid="nav-scroll">
+                        <div data-testid="nav-scroll">
                             <button
                                 className="nav-control nav-left"
                                 onClick={() => onScrollImage("left")}
@@ -92,8 +123,9 @@ function App() {
                             >
                                 ∆
                             </button>
-                        </React.Fragment>
+                        </div>
                     )}
+                    {renderJs()}
                 </div>
             ) : (
                 <div className="text-center" data-testid="render-empty">

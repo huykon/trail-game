@@ -1,6 +1,6 @@
 # Report
 - how many hours you spent on the project: 6h
-- what you would improve on if you had more time: Animation between scenes screen
+- what you would improve on if you had more time: Animation between scenes screen, use Ionic Framework
 
 # How to run project
 
